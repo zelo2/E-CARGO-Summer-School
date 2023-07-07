@@ -8,4 +8,4 @@ a simple python demo to solve the linear optimization problem via cplex
 (optional) numpy, torch, time, random
 # Preparation
 pip install cplex  
-pip install do cplex
+pip install docplex
