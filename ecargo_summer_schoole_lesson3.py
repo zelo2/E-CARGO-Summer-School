@@ -4,19 +4,13 @@ import numpy as np
 import time
 
 '''
-Start on 2023/7/18
-End on 2023/7/18
+Start on: 2023/7/18
+End on: 2023/7/18
+@author: Zelo2
 '''
 
 
 def cplex_demo(stu_num, group_size):
-    '''
-    :param hotel_num: 酒店数量
-    :param restaurant_num: 餐厅数量
-    :param attraction_num: 景点数量
-    :param task_num: 任务数量
-    :return: 休憩点分配矩阵
-    '''
 
     student_num = stu_num
     task_num = int(stu_num / group_size)
@@ -77,8 +71,6 @@ def cplex_demo(stu_num, group_size):
 
 
 if __name__ == '__main__':
-    # travel day = task_num / 2  旅行天数=任务数/2
-    result = []
     o_v, e_t, _ = cplex_demo(stu_num=15, group_size=3)
     print("Objecitve value:", o_v)
     print('Exection time(s):', e_t)
