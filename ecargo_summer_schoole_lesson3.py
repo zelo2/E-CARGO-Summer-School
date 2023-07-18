@@ -28,7 +28,7 @@ def cplex_demo(stu_num, group_size):
 
 
     # Model initialization
-    gra_model = cpx.Model(name="GRA lesson 2")
+    gra_model = cpx.Model(name="E-CARGO lesson #3")
 
     t = {(i, j): gra_model.binary_var(name="x_{0}_{1}".format(i, j))
               for i in row for j in column}
