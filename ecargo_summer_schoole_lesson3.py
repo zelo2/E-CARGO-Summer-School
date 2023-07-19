@@ -49,7 +49,7 @@ def gra_cplex(stu_num, group_size):
 
     # Problem Solving
     t0 = time.time()
-    result_rsam = gra_model.solve()
+    gra_model.solve()
     execution_time = time.time() - t0
 
     allocation_matrix = np.zeros([student_num, task_num])
