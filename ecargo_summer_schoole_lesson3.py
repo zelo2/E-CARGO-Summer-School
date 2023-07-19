@@ -1,4 +1,3 @@
-
 import docplex.mp.model as cpx
 import numpy as np
 import time
@@ -11,7 +10,11 @@ End on: 2023/7/18
 
 
 def cplex_demo(stu_num, group_size):
-
+    '''
+    :param stu_num: # of student
+    :param group_size: # of group size
+    :return: obejctive value, execution time, t-matrix
+    '''
     student_num = stu_num
     task_num = int(stu_num / group_size)
 
@@ -25,13 +28,11 @@ def cplex_demo(stu_num, group_size):
     dislike_mark = np.random.binomial(n=1, p=0.1, size=[student_num, task_num])
     p[dislike_mark == 1] = -1
 
-
-
     # Model initialization
-    gra_model = cpx.Model(name="E-CARGO lesson #3")
+    gra_model = cpx.Model(name="GRA lesson 3")
 
     t = {(i, j): gra_model.binary_var(name="x_{0}_{1}".format(i, j))
-              for i in row for j in column}
+         for i in row for j in column}
 
     # Constraints
     for i in row:
@@ -40,9 +41,7 @@ def cplex_demo(stu_num, group_size):
     for j in column:
         gra_model.add_constraint(gra_model.sum(t[i, j] for i in row) == group_size)  # group size constraint
 
-    for i in row:
-        for j in column:
-            gra_model.add_constraint(gra_model.sum(t[i, j] * c[i][j] for i in row for j in column) == 0)  # conflict constraint
+    gra_model.add_constraint(gra_model.sum(t[i, j] * c[i][j] for i in row for j in column) == 0)  # conflict constraint
 
     # Define objective function
     objective = gra_model.sum(q[i][j] * t[i, j] * p[i][j] for i in row for j in column)
@@ -69,11 +68,9 @@ def cplex_demo(stu_num, group_size):
     return gra_model.objective_value, execution_time, allocation_matrix
 
 
-
 if __name__ == '__main__':
+    # travel day = task_num / 2  旅行天数=任务数/2
+    result = []
     o_v, e_t, _ = cplex_demo(stu_num=15, group_size=3)
     print("Objecitve value:", o_v)
     print('Exection time(s):', e_t)
-
-
-
