@@ -5,7 +5,7 @@ import time
 '''
 Start on: 2023/7/19
 End on: 2023/7/19
-@author: Zelo2
+@author: Zhuoxuan Huang
 '''
 
 
@@ -54,7 +54,7 @@ def gmra_cplex(stu_num, group_size):
 
     # Problem Solving
     t0 = time.time()
-    result_rsam = gmra_model.solve()
+    gmra_model.solve()
     execution_time = time.time() - t0
 
     allocation_matrix = np.zeros([student_num, task_num])
