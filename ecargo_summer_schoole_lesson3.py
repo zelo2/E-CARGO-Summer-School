@@ -4,8 +4,8 @@ import time
 
 '''
 Start on: 2023/7/18
-End on: 2023/7/18
-@author: Zhuoxuan Huang
+End on: 2023/7/19
+@author: Zelo2
 '''
 
 
@@ -56,7 +56,7 @@ def gra_cplex(stu_num, group_size):
     for i in row:
         for j in column:
             if t[i, j].solution_value == 1:
-                allocation_matrix[i - 1, j - 1] = 1
+                allocation_matrix[i, j] = 1
 
     print("Cplex Allocation Results:")
     print(allocation_matrix)
