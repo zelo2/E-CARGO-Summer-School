@@ -5,11 +5,11 @@ import time
 '''
 Start on: 2023/7/18
 End on: 2023/7/18
-@author: Zelo2
+@author: Zhuoxuan Huang
 '''
 
 
-def cplex_demo(stu_num, group_size):
+def gra_cplex(stu_num, group_size):
     '''
     :param stu_num: # of student
     :param group_size: # of group size
@@ -69,8 +69,7 @@ def cplex_demo(stu_num, group_size):
 
 
 if __name__ == '__main__':
-    # travel day = task_num / 2  旅行天数=任务数/2
     result = []
-    o_v, e_t, _ = cplex_demo(stu_num=15, group_size=3)
+    o_v, e_t, _ = gra_cplex(stu_num=15, group_size=3)
     print("Objecitve value:", o_v)
     print('Exection time(s):', e_t)
