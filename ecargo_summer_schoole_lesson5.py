@@ -5,7 +5,7 @@ import time
 '''
 Start on: 2023/7/19
 End on: 2023/7/19
-@author: Zhuoxuan Huang
+@author: zelo2
 '''
 
 
@@ -29,8 +29,7 @@ def gmra_cplex(stu_num, group_size):
     dislike_mark = np.random.binomial(n=1, p=0.1, size=[student_num, task_num])
     p[dislike_mark == 1] = -1
 
-    la = np.random.uniform(1, 3, size=student_num)
-    la = np.around(la)
+    la = np.random.randint(1, 4, size=student_num)
 
     # Model initialization
     gmra_model = cpx.Model(name="GRA lesson 5")
@@ -61,8 +60,12 @@ def gmra_cplex(stu_num, group_size):
     for i in row:
         for j in column:
             if t[i, j].solution_value == 1:
-                allocation_matrix[i - 1, j - 1] = 1
+                allocation_matrix[i, j] = 1
 
+    real_la = np.sum(allocation_matrix, axis=1)  # sum each row
+
+    print("L^a matrix", la)
+    print(real_la <= la)
     print("Cplex Allocation Results:")
     print(allocation_matrix)
 
@@ -75,7 +78,6 @@ def gmra_cplex(stu_num, group_size):
 
 
 if __name__ == '__main__':
-    # travel day = task_num / 2  旅行天数=任务数/2
     result = []
     o_v, e_t, _ = gmra_cplex(stu_num=15, group_size=3)
     print("Objecitve value:", o_v)
