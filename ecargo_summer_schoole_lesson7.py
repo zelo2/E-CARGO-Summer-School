@@ -50,7 +50,7 @@ def gmracar_cplex(stu_num, group_size):
     gmra_model.add_constraint(
         gmra_model.sum(t[i, j] * st_c[i][j] for i in row for j in column) == 0)  # conflict constraint
 
-    for i in row:
+    for i in row:  # student-student conflict constraint
         for j in column:
             for x in row:
                 if i != x:
