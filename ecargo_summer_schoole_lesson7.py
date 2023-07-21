@@ -4,8 +4,8 @@ import time
 
 '''
 Start on: 2023/7/20
-End on: 2023/7/20
-@author: Zelo2
+End on: 2023/7/21
+@author: zelo2
 '''
 
 
@@ -35,34 +35,34 @@ def gmracar_cplex(stu_num, group_size):
     la = np.random.randint(1, 4, size=student_num)
 
     # Model initialization
-    gmra_model = cpx.Model(name="GRA lesson 7/lab 3")
+    gracar_model = cpx.Model(name="GRA lesson 7/lab 3")
 
-    t = {(i, j): gmra_model.binary_var(name="x_{0}_{1}".format(i, j))
+    t = {(i, j): gracar_model.binary_var(name="x_{0}_{1}".format(i, j))
          for i in row for j in column}
 
     # Constraints
     for i in row:
-        gmra_model.add_constraint(gmra_model.sum(t[i, j] for j in column) <= la[i])  # L^a constraints
+        gracar_model.add_constraint(gracar_model.sum(t[i, j] for j in column) <= la[i])  # L^a constraints
 
     for j in column:
-        gmra_model.add_constraint(gmra_model.sum(t[i, j] for i in row) == group_size)  # group size constraint
+        gracar_model.add_constraint(gracar_model.sum(t[i, j] for i in row) == group_size)  # group size constraint
 
-    gmra_model.add_constraint(
-        gmra_model.sum(t[i, j] * st_c[i][j] for i in row for j in column) == 0)  # conflict constraint
+    gracar_model.add_constraint(
+        gracar_model.sum(t[i, j] * st_c[i][j] for i in row for j in column) == 0)  # conflict constraint
 
     for i in row:  # student-student conflict constraint
         for j in column:
             for x in row:
                 if i != x:
-                    gmra_model.add_constraint(gmra_model.sum((t[i, j] + t[x, j]) * ss_c[i][x]) <= 1)
+                    gracar_model.add_constraint(gracar_model.sum((t[i, j] + t[x, j]) * ss_c[i][x]) <= 1)
 
     # Define objective function
-    objective = gmra_model.sum(q[i][j] * t[i, j] * p[i][j] for i in row for j in column)
-    gmra_model.maximize(objective)
+    objective = gracar_model.sum(q[i][j] * t[i, j] * p[i][j] for i in row for j in column)
+    gracar_model.maximize(objective)
 
     # Problem Solving
     t0 = time.time()
-    gmra_model.solve()
+    gracar_model.solve()
     execution_time = time.time() - t0
 
     allocation_matrix = np.zeros([student_num, task_num])
@@ -84,7 +84,7 @@ def gmracar_cplex(stu_num, group_size):
     np.savetxt("p.txt", p, fmt='%.0f')
     np.savetxt("t.txt", allocation_matrix, fmt='%.0f')
     np.savetxt("L^a.txt", la, fmt='%.0f')
-    return gmra_model.objective_value, execution_time, allocation_matrix
+    return gracar_model.objective_value, execution_time, allocation_matrix
 
 
 if __name__ == '__main__':
